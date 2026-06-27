@@ -8,8 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
-    "prisma:push": "node scripts/setup-db.js",
+    "prisma:push": "prisma db push",
     "prisma:seed": "node prisma/seed.js",
     "db:setup": "npm run prisma:generate && npm run prisma:push && npm run prisma:seed"
   },
@@ -18,6 +19,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.10.1",
+    "@vercel/blob": "^2.5.0",
     "clsx": "^2.1.1",
     "gsap": "^3.12.7",
     "next": "^15.3.4",
