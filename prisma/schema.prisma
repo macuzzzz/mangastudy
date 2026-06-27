@@ -1,0 +1,208 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Lesson {
+  id                String               @id @default(cuid())
+  title             String
+  subject           String
+  gradeLevel        String
+  sourceText        String
+  status            LessonStatus         @default(DRAFT)
+  generationLocked  Boolean              @default(false)
+  generationError   String?
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  sourceChunks      SourceChunk[]
+  facts             Fact[]
+  objectives        LearningObjective[]
+  characters        Character[]
+  styleBibles       StyleBible[]
+  scenes            StoryScene[]
+  panels            Panel[]
+  quizCards         QuizCard[]
+  verificationItems VerificationResult[]
+  progressEvents    GenerationProgress[]
+}
+
+model GenerationProgress {
+  id          String         @id @default(cuid())
+  lessonId    String
+  lesson      Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  stepCode    String
+  label       String
+  status      ProgressStatus @default(PENDING)
+  message     String?
+  stepOrder   Int
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model SourceChunk {
+  id          String   @id @default(cuid())
+  lessonId    String
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  chunkIndex  Int
+  text        String
+  pageNumber  Int?
+  createdAt   DateTime @default(now())
+  facts       Fact[]
+}
+
+model Fact {
+  id            String      @id @default(cuid())
+  lessonId      String
+  lesson        Lesson      @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  factCode      String
+  factText      String
+  sourceQuote   String
+  sourceChunkId String
+  sourceChunk   SourceChunk  @relation(fields: [sourceChunkId], references: [id], onDelete: Cascade)
+  pageNumber    Int?
+  importance    String
+  factType      String
+  objectiveLinks LearningObjectiveFact[]
+  panelLinks    PanelFact[]
+  quizLinks     QuizFact[]
+}
+
+model LearningObjective {
+  id            String                  @id @default(cuid())
+  lessonId      String
+  lesson        Lesson                  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  objectiveCode String
+  objectiveText String
+  factLinks     LearningObjectiveFact[]
+}
+
+model LearningObjectiveFact {
+  id          String            @id @default(cuid())
+  objectiveId String
+  factId      String
+  objective   LearningObjective @relation(fields: [objectiveId], references: [id], onDelete: Cascade)
+  fact        Fact              @relation(fields: [factId], references: [id], onDelete: Cascade)
+}
+
+model Character {
+  id               String   @id @default(cuid())
+  lessonId         String
+  lesson           Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  name             String
+  role             String
+  visualDescription String
+  personality      String
+  consistencyNotes String
+  visualAnchor     String
+}
+
+model StyleBible {
+  id            String   @id @default(cuid())
+  lessonId      String
+  lesson        Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  styleName     String
+  lineStyle     String
+  shading       String
+  colorRules    String
+  mood          String
+  negativeRules String
+}
+
+model StoryScene {
+  id        String   @id @default(cuid())
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  sceneCode String
+  title     String
+  summary   String
+  purpose   String
+  panels    Panel[]
+}
+
+model Panel {
+  id                 String                @id @default(cuid())
+  lessonId           String
+  lesson             Lesson                @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  sceneId            String
+  scene              StoryScene            @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+  panelCode          String
+  panelNumber        Int
+  visualDescription  String
+  cameraAngle        String
+  characterActions   String
+  narration          String
+  dialogueJson       String
+  imagePrompt        String
+  placeholderPrompt  String?
+  imageUrl           String?
+  verificationStatus VerificationStatus    @default(PASS)
+  factLinks          PanelFact[]
+}
+
+model PanelFact {
+  id      String @id @default(cuid())
+  panelId String
+  factId  String
+  panel   Panel  @relation(fields: [panelId], references: [id], onDelete: Cascade)
+  fact    Fact   @relation(fields: [factId], references: [id], onDelete: Cascade)
+}
+
+model QuizCard {
+  id                 String             @id @default(cuid())
+  lessonId           String
+  lesson             Lesson             @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  question           String
+  quizType           String
+  difficulty         String
+  optionsJson        String?
+  correctAnswer      String
+  explanation        String
+  verificationStatus VerificationStatus @default(PASS)
+  factLinks          QuizFact[]
+}
+
+model QuizFact {
+  id     String   @id @default(cuid())
+  quizId String
+  factId String
+  quiz   QuizCard @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  fact   Fact     @relation(fields: [factId], references: [id], onDelete: Cascade)
+}
+
+model VerificationResult {
+  id                 String             @id @default(cuid())
+  lessonId           String
+  lesson             Lesson             @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  targetType         String
+  targetId           String
+  status             VerificationStatus
+  issuesJson         String?
+  revisionInstruction String?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+}
+
+enum LessonStatus {
+  DRAFT
+  PROCESSING
+  READY
+  NEEDS_REVIEW
+  ERROR
+}
+
+enum ProgressStatus {
+  PENDING
+  RUNNING
+  COMPLETE
+  ERROR
+}
+
+enum VerificationStatus {
+  PASS
+  NEEDS_REVIEW
+  FAIL
+}

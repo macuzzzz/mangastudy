@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Black Rain // Manga Scroll Concept</title>
+    <meta
+      name="description"
+      content="An anime and manga inspired cinematic landing page concept with layered panels, GSAP scroll motion, and ink-styled particle effects."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Zen+Old+Mincho:wght@500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+    <div class="page-grain" aria-hidden="true"></div>
+    <div class="page-vignette" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#hero">
+        <span class="brand__mark">BR</span>
+        <span class="brand__text">Black Rain</span>
+      </a>
+      <nav class="topbar__nav" aria-label="Primary">
+        <a href="#manifesto">Manifesto</a>
+        <a href="#showcase">Panels</a>
+        <a href="#transition">Ritual</a>
+        <a href="#finale">Finale</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="hero" class="scene scene--hero">
+        <div class="hero__backdrop" aria-hidden="true"></div>
+        <div class="hero__wash" aria-hidden="true"></div>
+
+        <div class="scene__inner hero__layout">
+          <div class="hero__copy">
+            <p class="eyebrow">Concept Showcase // Scroll Chapter 01</p>
+            <h1 class="hero__title">
+              <span>Ink.</span>
+              <span>Steel.</span>
+              <span>Silence.</span>
+            </h1>
+            <p class="hero__lede">
+              A monochrome landing page staged like a torn manga spread, where
+              every panel bleeds into the next with rain, halftone grit, and
+              restrained crimson.
+            </p>
+            <div class="hero__actions">
+              <a class="button button--primary" href="#showcase">Enter the Panels</a>
+              <a class="button button--ghost" href="#manifesto">Read the Manifesto</a>
+            </div>
+          </div>
+
+          <div class="hero__composition">
+            <div class="orbit orbit--outer" aria-hidden="true"></div>
+            <div class="orbit orbit--inner" aria-hidden="true"></div>
+
+            <article
+              class="cutout cutout--left js-tilt"
+              data-depth="0.45"
+              style="--bg-pos: 10% 12%;"
+            >
+              <div class="cutout__inner">
+                <div class="cutout__art"></div>
+                <div class="cutout__edge"></div>
+              </div>
+              <p class="cutout__caption">The witness</p>
+            </article>
+
+            <article
+              class="cutout cutout--center js-tilt"
+              data-depth="0.8"
+              style="--bg-pos: 50% 58%;"
+            >
+              <div class="cutout__inner">
+                <div class="cutout__art"></div>
+                <div class="cutout__edge"></div>
+              </div>
+              <p class="cutout__caption">The wanderer</p>
+            </article>
+
+            <article
+              class="cutout cutout--right js-tilt"
+              data-depth="0.55"
+              style="--bg-pos: 82% 26%;"
+            >
+              <div class="cutout__inner">
+                <div class="cutout__art"></div>
+                <div class="cutout__edge"></div>
+              </div>
+              <p class="cutout__caption">The shadow</p>
+            </article>
+          </div>
+
+          <div class="hero__glyphs" aria-hidden="true">
+            <span>DREAM</span>
+            <span>VOID</span>
+            <span>STEEL</span>
+          </div>
+        </div>
+
+        <div class="scroll-cue" aria-hidden="true">
+          <span class="scroll-cue__line"></span>
+          <span class="scroll-cue__text">Scroll to descend</span>
+        </div>
+      </section>
+
+      <section id="manifesto" class="scene scene--manifesto">
+        <div class="scene__inner manifesto">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Manifesto // Fractured Panels</p>
+            <h2>Build atmosphere first. Let interaction arrive like thunder after the rain.</h2>
+          </div>
+
+          <div class="manifesto__grid">
+            <article class="panel-card panel-card--wide" data-reveal>
+              <p class="panel-card__index">01</p>
+              <h3>Monochrome as tension</h3>
+              <p>
+                Most of the interface lives in black, bone, and fogged charcoal.
+                Crimson appears only when the page wants to cut through silence.
+              </p>
+            </article>
+
+            <article class="panel-card panel-card--tall" data-reveal>
+              <p class="panel-card__index">02</p>
+              <h3>Broken geometry</h3>
+              <p>
+                Panels lean, collide, and overlap so the page feels edited by
+                blades, not boxes.
+              </p>
+            </article>
+
+            <article class="editorial-block" data-reveal>
+              <p class="editorial-block__lead">The story is the navigation.</p>
+              <p>
+                Instead of a neutral landing page, the visitor moves through
+                scenes, pressure, and pause. Sections should feel sequential,
+                cinematic, and inevitable.
+              </p>
+            </article>
+
+            <article class="quote-panel" data-reveal>
+              <p>
+                "Not every hero needs color. Some arrive in ink, static, and rain."
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="showcase" class="scene scene--showcase">
+        <div class="scene__inner showcase">
+          <div class="section-heading section-heading--split" data-reveal>
+            <p class="eyebrow">Panel Showcase // Pseudo 3D Depth</p>
+            <h2>Characters cut out of the storm, suspended between poster art and memory.</h2>
+          </div>
+
+          <div class="showcase__grid">
+            <article
+              class="character-panel js-tilt"
+              data-depth="0.65"
+              data-reveal
+              style="--bg-pos: 22% 22%;"
+            >
+              <div class="character-panel__art"></div>
+              <div class="character-panel__shade"></div>
+              <div class="character-panel__content">
+                <p class="character-panel__tag">Panel A</p>
+                <h3>Split gaze</h3>
+                <p>Sharp framing, diagonal borders, and an off-axis stare that anchors the left side of the story.</p>
+              </div>
+            </article>
+
+            <article
+              class="character-panel character-panel--featured js-tilt"
+              data-depth="0.9"
+              data-reveal
+              style="--bg-pos: 50% 60%;"
+            >
+              <div class="character-panel__art"></div>
+              <div class="character-panel__shade"></div>
+              <div class="character-panel__content">
+                <p class="character-panel__tag">Panel B</p>
+                <h3>Lone center</h3>
+                <p>The central silhouette becomes the emotional pivot, framed by a false moon and drifting debris.</p>
+              </div>
+            </article>
+
+            <article
+              class="character-panel js-tilt"
+              data-depth="0.6"
+              data-reveal
+              style="--bg-pos: 82% 28%;"
+            >
+              <div class="character-panel__art"></div>
+              <div class="character-panel__shade"></div>
+              <div class="character-panel__content">
+                <p class="character-panel__tag">Panel C</p>
+                <h3>Afterimage</h3>
+                <p>Negative space and soft rim-light keep the darker panel readable while preserving the manga grit.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="transition" class="scene scene--transition">
+        <div class="transition__backdrop" aria-hidden="true"></div>
+        <div class="scene__inner transition">
+          <div class="transition__statement" data-reveal>
+            <p class="eyebrow">Ritual // Motion Language</p>
+            <h2>The scroll should feel like panels slipping loose from a printed page.</h2>
+          </div>
+
+          <div class="transition__bands">
+            <article class="motion-band" data-reveal>
+              <h3>GSAP staging</h3>
+              <p>Pinned hero tension, staggered type, and scene wipes that do not overpower the composition.</p>
+            </article>
+            <article class="motion-band" data-reveal>
+              <h3>Particle weather</h3>
+              <p>Rain, ash, and ink specks drift above the interface with density tuned down on smaller screens.</p>
+            </article>
+            <article class="motion-band" data-reveal>
+              <h3>Hover depth</h3>
+              <p>Only the cutouts and showcase panels react, keeping interactivity sharp and selective.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="finale" class="scene scene--finale">
+        <div class="scene__inner finale">
+          <div class="finale__image" aria-hidden="true"></div>
+          <div class="finale__copy" data-reveal>
+            <p class="eyebrow">Finale // Closing Frame</p>
+            <h2>Leave the viewer in the quiet after the strike.</h2>
+            <p>
+              The final section slows the rhythm, softens the noise, and lands
+              the concept with a single controlled accent.
+            </p>
+            <a class="button button--primary" href="#hero">Return to the opening frame</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
